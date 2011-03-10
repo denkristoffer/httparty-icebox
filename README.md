@@ -58,5 +58,5 @@ a pull request to me. I'll gladly consider any help or ideas.
 
 - Martyn Loughran (https://github.com/mloughran) Major parts of this code are based on the architecture of ApiCache.
 - David Heinemeier Hansson (https://github.com/dhh) Other parts are inspired by the ActiveSupport::Cache in Ruby On Rails.
-- Amit Chakradeo () For pointing out response objects have to be stored marshalled on FS
+- Amit Chakradeo (https://github.com/amit) For pointing out response objects have to be stored marshalled on FS
 - Marlin Forbes () For pointing out the query parameters have to be included in the cache key
