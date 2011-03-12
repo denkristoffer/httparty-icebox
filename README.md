@@ -46,11 +46,11 @@ Cache responses for 5 minutes on the system in the directory "/tmp":
 
 ## Authors
 
-- [Kristoffer Sachse](https://github.com/sachse)
+- [Kristoffer Sachse](https://github.com/sachse) (Current maintainer)
 
 Based on code by
 
-- [Karel Minarik](http://karmi.cz) (Original gist at https://gist.github.com/209521/)
+- [Karel Minarik](http://karmi.cz) (Original creator through [a gist](https://gist.github.com/209521/))
 
 ## Contribute
 
@@ -59,7 +59,7 @@ a pull request to me. I'll gladly consider any help or ideas.
 
 ### Contributors
 
-- Martyn Loughran (https://github.com/mloughran) Major parts of this code are based on the architecture of ApiCache.
-- David Heinemeier Hansson (https://github.com/dhh) Other parts are inspired by the ActiveSupport::Cache in Ruby On Rails.
-- Amit Chakradeo (https://github.com/amit) For pointing out response objects have to be stored marshalled on FS
-- Marlin Forbes () For pointing out the query parameters have to be included in the cache key
+- [Martyn Loughran](https://github.com/mloughran) Major parts of this code are based on the architecture of ApiCache.
+- [David Heinemeier Hansson](https://github.com/dhh) Other parts are inspired by the ActiveSupport::Cache in Ruby On Rails.
+- [Amit Chakradeo](https://github.com/amit) For pointing out response objects have to be stored marshalled on FS
+- Marlin Forbes For pointing out the query parameters have to be included in the cache key
