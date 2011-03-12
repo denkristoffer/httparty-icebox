@@ -49,6 +49,7 @@ Cache responses for 5 minutes on the system in the directory "/tmp":
 - [Kristoffer Sachse](https://github.com/sachse)
 
 Based on code by
+
 - [Karel Minarik](http://karmi.cz) (Original gist at https://gist.github.com/209521/)
 
 ## Contribute
