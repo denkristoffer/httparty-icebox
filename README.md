@@ -32,7 +32,7 @@ Enable caching with default values:
     
     cache
     # Use HTTParty's .get method as usual, the response will now be cached
-    response = HTTParty.get("https://github.com/sachse/httparty-icebox")
+    cached_response = HTTParty.get("https://github.com/sachse/httparty-icebox")
 
 Cache responses for 5 minutes on the system in the directory "/tmp":
 
@@ -42,13 +42,11 @@ Cache responses for 5 minutes on the system in the directory "/tmp":
     
     cache :store => 'file', :timeout => 300, :location => '/tmp/'
     # Use HTTParty's .get method as usual, the response will now be cached
-    response = HTTParty.get("https://github.com/sachse/httparty-icebox")
+    cached_response = HTTParty.get("https://github.com/sachse/httparty-icebox")
 
 ## Authors
 
 - [Kristoffer Sachse](https://github.com/sachse) (Current maintainer)
-
-Based on code by
 
 - [Karel Minarik](http://karmi.cz) (Original creator through [a gist](https://gist.github.com/209521/))
 
