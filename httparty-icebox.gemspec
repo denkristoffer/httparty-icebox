@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "httparty-icebox"
   s.version     = Httparty::Icebox::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Karel Minarik", "Kristoffer Sachse"]
+  s.authors     = ["Kristoffer Sachse", "Karel Minarik"]
   s.email       = ["kristoffer@sachse.nu"]
   s.homepage    = "https://github.com/sachse/httparty-icebox"
   s.summary     = %q{Caching for HTTParty}
@@ -15,9 +15,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = "httparty-icebox"
 
   s.add_dependency("httparty", "~> 0.7.4")
-  s.add_development_dependency("rspec", "~> 2.5.0")
 
   s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {spec}/*`.split("\n")
   s.require_paths = ["lib"]
 end
