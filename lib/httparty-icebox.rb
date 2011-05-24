@@ -68,9 +68,19 @@ module HTTParty #:nodoc:
             return cache.get(key)
           else
             Cache.logger.debug "/!\\ NETWORK -- GET #{path}#{options[:query]}"
-            response = get_without_caching(path, options)
-            cache.set(key, response) if response.code.to_s == "200" # this works for string and integer response codes
-            return response
+
+            begin
+              response = get_without_caching(path, options)
+              cache.set(key, response) if response.code.to_s == "200" # this works for string and integer response codes
+              return response
+            rescue
+              if cache.exists?(key)
+                Cache.logger.debug "!!! NETWORK FAILED -- RETURNING STALE CACHE"
+                return cache.get(key, true)
+              else
+                raise
+              end
+            end
           end
         end
 
@@ -95,10 +105,22 @@ module HTTParty #:nodoc:
         @store = self.class.lookup_store(store).new(options)
       end
 
-      def get(key);            @store.get encode(key) unless stale?(key);        end
-      def set(key, value);puts "Cache.set, key: #{key}, value: #{value}";     @store.set encode(key), value;                    end
-      def exists?(key);        @store.exists? encode(key);                       end
-      def stale?(key);         @store.stale?  encode(key);                       end
+      def get(key, force=false)
+        @store.get encode(key) if !stale?(key) || force
+      end
+      
+      def set(key, value)
+        puts "Cache.set, key: #{key}, value: #{value}"
+        @store.set encode(key), value
+      end
+      
+      def exists?(key)
+        @store.exists? encode(key)
+      end
+      
+      def stale?(key)
+        @store.stale? encode(key)
+      end
 
       def self.logger; @logger || default_logger; end
       def self.default_logger; logger = ::Logger.new(STDERR); end
