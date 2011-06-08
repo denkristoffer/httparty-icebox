@@ -1,3 +1,7 @@
+== 0.0.2
+* minor enhancements
+  * Return a cached result if network fails. [Andreas Garnæs]
+
 == 0.0.1 
 
 * major enhancements
