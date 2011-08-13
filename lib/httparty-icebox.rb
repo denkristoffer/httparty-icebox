@@ -110,7 +110,6 @@ module HTTParty #:nodoc:
       end
       
       def set(key, value)
-        puts "Cache.set, key: #{key}, value: #{value}"
         @store.set encode(key), value
       end
       
