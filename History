@@ -1,7 +1,3 @@
-== 0.0.3
-* minor enhancements
-  * Remove the output from setting a cache.
-
 == 0.0.2
 * minor enhancements
   * Return a cached result if network fails. [Andreas Garnæs]
