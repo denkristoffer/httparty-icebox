@@ -7,14 +7,16 @@ Gem::Specification.new do |s|
   s.version     = Httparty::Icebox::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Kristoffer Sachse", "Karel Minarik"]
-  s.email       = ["kristoffer@sachse.nu"]
+  s.email       = ["hello@kristoffer.is"]
   s.homepage    = "https://github.com/sachse/httparty-icebox"
   s.summary     = %q{Caching for HTTParty}
   s.description = %q{Cache responses in HTTParty models}
 
   s.rubyforge_project = "httparty-icebox"
 
-  s.add_dependency("httparty", "~> 0.7.4")
+  s.add_dependency("httparty")
+
+  s.add_development_dependency("rspec")
 
   s.files         = `git ls-files`.split("\n")
   s.require_paths = ["lib"]
