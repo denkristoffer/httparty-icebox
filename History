@@ -1,3 +1,7 @@
+== 0.0.4 2012-01-03
+* minor enhancements
+  * Update gemspec to depend on HTTParty 0.8.X to fix YAML issues.
+
 == 0.0.3
 * minor enhancements
   * Remove the output from setting a cache.
