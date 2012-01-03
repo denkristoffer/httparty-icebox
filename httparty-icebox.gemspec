@@ -14,9 +14,9 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "httparty-icebox"
 
-  s.add_dependency("httparty")
+  s.add_dependency("httparty", "~> 0.8.1")
 
-  s.add_development_dependency("rspec")
+  s.add_development_dependency("rspec", "~> 2.7.0")
 
   s.files         = `git ls-files`.split("\n")
   s.require_paths = ["lib"]
