@@ -208,11 +208,11 @@ module HTTParty #:nodoc:
         end
         def set(key, value)
           Cache.logger.info("Cache: set (#{key})")
-          File.open( @path.join(key), 'w' ) { |file| file << Marshal.dump(value)  }
+          File.open( @path.join(key), 'w' ) { |file| file << Base64.encode64(Marshal.dump(value))  }
           true
         end
         def get(key)
-          data = Marshal.load(File.read( @path.join(key)))
+          data = Marshal.load(Base64.decode64(File.read( @path.join(key))))
           Cache.logger.info("Cache: #{data.nil? ? "miss" : "hit"} (#{key})")
           data
         end
