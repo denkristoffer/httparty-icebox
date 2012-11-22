@@ -20,7 +20,7 @@ module HTTParty #:nodoc:
       # +store+::       Storage mechanism for cached data (memory, filesystem, your own) [memory]
       # +timeout+::     Cache expiration in seconds [60]
       # +logger+::      Path to logfile or logger instance [nil, silent]
-      # 
+      #
       # Any additional options are passed to the Cache constructor
       #
       # Usage:
@@ -71,7 +71,8 @@ module HTTParty #:nodoc:
 
             begin
               response = get_without_caching(path, options)
-              cache.set(key, response) if response.code.to_s == "200" # this works for string and integer response codes
+              timeout = response.headers['cache-control'] && response.headers['cache-control'][/max-age=(\d+)/, 1].to_i
+              cache.set(key, response, :timeout => timeout) if response.code.to_s == "200" # this works for string and integer response codes
               return response
             rescue
               if cache.exists?(key)
@@ -108,15 +109,15 @@ module HTTParty #:nodoc:
       def get(key, force=false)
         @store.get encode(key) if !stale?(key) || force
       end
-      
-      def set(key, value)
-        @store.set encode(key), value
+
+      def set(key, value, options={})
+        @store.set encode(key), value, options
       end
-      
+
       def exists?(key)
         @store.exists? encode(key)
       end
-      
+
       def stale?(key)
         @store.stale? encode(key)
       end
@@ -168,17 +169,18 @@ module HTTParty #:nodoc:
 
       # ==== Store objects in memory
       # See HTTParty::Icebox::ClassMethods.cache
-      #
       class MemoryStore < AbstractStore
         def initialize(options={})
           super; @store = {}; self
         end
-        def set(key, value)
+        def set(key, value, options={})
           Cache.logger.info("Cache: set (#{key})")
-          @store[key] = [Time.now, value]; true
+          value_timeout = options[:timeout]
+          @store[key] = [Time.now, value_timeout, value]
+          true
         end
         def get(key)
-          data = @store[key][1]
+          data = @store[key][2]
           Cache.logger.info("Cache: #{data.nil? ? "miss" : "hit"} (#{key})")
           data
         end
@@ -187,17 +189,21 @@ module HTTParty #:nodoc:
         end
         def stale?(key)
           return true unless exists?(key)
-          Time.now - created(key) > @timeout
+          Time.now - created(key) > value_timeout(key)
         end
         private
         def created(key)
           @store[key][0]
+        end
+        def value_timeout(key)
+          @store[key][1]
         end
       end
 
       # ==== Store objects on the filesystem
       # See HTTParty::Icebox::ClassMethods.cache
       #
+      # TODO implement a timeout on a per value basis, like the MemoryStore's `value_timeout`
       class FileStore < AbstractStore
         def initialize(options={})
           super
@@ -206,7 +212,7 @@ module HTTParty #:nodoc:
           FileUtils.mkdir_p( @path )
           self
         end
-        def set(key, value)
+        def set(key, value, options = {})
           Cache.logger.info("Cache: set (#{key})")
           File.open( @path.join(key), 'w' ) { |file| file << Base64.encode64(Marshal.dump(value))  }
           true
