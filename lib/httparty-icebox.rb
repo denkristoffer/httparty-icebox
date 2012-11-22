@@ -169,6 +169,9 @@ module HTTParty #:nodoc:
 
       # ==== Store objects in memory
       # See HTTParty::Icebox::ClassMethods.cache
+      #
+      # NB. For in memory make sure to make copies of the values in case
+      #     clients of this store perform destructive actions on the values.
       class MemoryStore < AbstractStore
         def initialize(options={})
           super; @store = {}; self
@@ -176,11 +179,11 @@ module HTTParty #:nodoc:
         def set(key, value, options={})
           Cache.logger.info("Cache: set (#{key})")
           value_timeout = options[:timeout]
-          @store[key] = [Time.now, value_timeout, value]
+          @store[key] = [Time.now, value_timeout, value.deep_dup]
           true
         end
         def get(key)
-          data = @store[key][2]
+          data = @store[key][2].deep_dup
           Cache.logger.info("Cache: #{data.nil? ? "miss" : "hit"} (#{key})")
           data
         end
