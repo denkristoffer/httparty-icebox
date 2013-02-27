@@ -1,5 +1,13 @@
 # HTTParty-Icebox - Caching for HTTParty
 
+## Deprecation notice
+HTTParty-Icebox is no longer being maintained.
+
+As I haven't used HTTParty for a long time, and don't like feeling bad about neglecting HTTParty-Icebox, I've decided to deprecate it. Check out [CacheBar](https://github.com/vigetlabs/cachebar) instead.
+
+If you're interested in taking over let me know. I should still have my unfinished rewrite somewhere.
+
+
 ## Description
 
 Cache responses in HTTParty models
